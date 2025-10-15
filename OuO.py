@@ -1,69 +1,19 @@
 import evdev
 import pygame
 import threading
+import consts
+import face
 
 # Initialize pygame
 ctrl, mod, alt, shift = False, False, False, False
 specials = False
-FPS = 30
-CLEAR_SCREEN_FRAMES = 60
-display_text = 0
+frames_left_to_show_text = 0
 frame_time = 0
-change = {
-    "e": "f",
-    "r": "p",
-    "t": "g",
-    "y": "j",
-    "u": "k",
-    "i": "u",
-    "o": "y",
-    "p": ";",
-    "s": "r",
-    "d": "s",
-    "f": "t",
-    "g": "d",
-    "j": "n",
-    "k": "e",
-    "l": "i",
-    "semicolon": "o",
-    "n": "k",
-    "comma": ",",
-    "dot": ".",
-    "slash": "/",
-    "apostrophe": "'",
-    "leftbrace": "[",
-    "rightbrace": "]",
-    "backslash": "\\",
-    "minus": "-",
-    "equal": "=",
-}
-shift_change = {
-    "1": "!",
-    "2": "@",
-    "3": "#",
-    "4": "$",
-    "5": "%",
-    "6": "^",
-    "7": "&",
-    "8": "*",
-    "9": "(",
-    "0": ")",
-    "-": "_",
-    "=": "+",
-    "\\": "|",
-    "[": "{",
-    "]": "}",
-    ";": ":",
-    "'": '"',
-    ",": '<',
-    ".": '>',
-    "/": '?',
-}
 events = ""
 specials = False
 
 def display(text: str):
-    global display_text, change, ctrl, alt, mod, shift, events, specials
+    global frames_left_to_show_text, ctrl, alt, mod, shift, events, specials
     if "ctrl" in text.lower():
         if text.endswith("down"):
             ctrl = True
@@ -88,30 +38,16 @@ def display(text: str):
         elif text.endswith("up"):
             mod = False
         return
-    elif "esc" in text.lower() and text.endswith("down"):
-        display_text = CLEAR_SCREEN_FRAMES
-        events = "Esc"
-        return
-    elif "enter" in text.lower() and text.endswith("down"):
-        specials = True
-        display_text = CLEAR_SCREEN_FRAMES
-        events = "Enter"
-        return
-    elif "backspace" in text.lower() and text.endswith("down"):
-        specials = True
-        display_text = CLEAR_SCREEN_FRAMES
-        events = "Backspace"
-        return
 
     if not text.endswith("down"):
         return
-    display_text = CLEAR_SCREEN_FRAMES
+    frames_left_to_show_text = consts.CLEAR_SCREEN_FRAMES
     text = text[text.index("(")+1:text.index(")")].removeprefix("KEY_").lower()
-    if text in change:
-        text = change[text]
+    if text in consts.CHANGE:
+        text = consts.CHANGE[text]
     if shift:
-        if text in shift_change:
-            text = shift_change[text]
+        if text in consts.SHIFT_CHANGE:
+            text = consts.SHIFT_CHANGE[text]
         else:
             text = text.upper()
     was_special = specials
@@ -125,48 +61,44 @@ def display(text: str):
         events += text
     if len(events)>64:
         events = events[-64:]
+    if events in consts.WORKFLOW_CHANGE:
+        events = consts.WORKFLOW_CHANGE[events]
 
 def render(text):
-    global display_text
-    if display_text:
+    global frames_left_to_show_text
+    if frames_left_to_show_text>0:
         return text.center(64) 
-    elif frame_time<BLINK_FRAME-15:
-        return "O u O".center(64)
-    return "1 u 1".center(64)
+    return face.face(frame_time+1)
 
 pygame.init()
-screen = pygame.display.set_mode((1870, 80))
+screen = pygame.display.set_mode(consts.WINDOW_SIZE)
+pygame.display.set_caption(consts.WINDOW_NAME)
 
-FONT_PATH = "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
-FONT_SIZE = 50
-COVE_FONT = pygame.font.Font(FONT_PATH, FONT_SIZE)
-BLINK_FRAME = 150
-
-WHITE = (255, 255, 255)
+PYGAME_FONT = pygame.font.Font(consts.FONT_PATH, consts.FONT_SIZE)
 
 clock = pygame.time.Clock()
 
 
-keyboard = evdev.InputDevice('/dev/input/event10')
-mouse = evdev.InputDevice('/dev/input/event11')
-
+keyboard = mouse = None
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
 for device in devices:
-    if device.name == "keyd virtual keyboard":
+    if consts.KEYBOARD_NAME in device.name:
         keyboard = evdev.InputDevice(device.path)
-        print(device.name)
-    elif "Logitech" in device.name:
+    elif consts.MOUSE_NAME in device.name:
         mouse = evdev.InputDevice(device.path)
-        print(device.name)
 
 def listen_keyboard():
     global events
+    if keyboard is None:
+        raise ValueError("Couldn't find keyboard input :c")
     for event in keyboard.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
             display(key_event)
 def listen_mouse():
     global events
+    if mouse is None:
+        raise ValueError("Couldn't find mouse input :c")
     for event in mouse.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
@@ -178,21 +110,21 @@ threading.Thread(target=listen_mouse, daemon=True).start()
 
 running = True
 while running:
-    screen.fill((18, 16, 32))
+    screen.fill(consts.BG_COLOR)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    text_surface = COVE_FONT.render(render(events), True, WHITE)
-    screen.blit(text_surface, (10, 10))
+    text_surface = PYGAME_FONT.render(render(events), consts.ANTIALIAS_ENABLED, consts.WHITE)
+    screen.blit(text_surface, consts.TEXT_POS)
 
     pygame.display.flip()
-    if display_text:
-        display_text -= 1
+    if frames_left_to_show_text>0:
+        frames_left_to_show_text -= 1
     else:
         events = ""
-    frame_time = (frame_time+1)%BLINK_FRAME
-    clock.tick(FPS)
+    frame_time = (frame_time+1)%face.FRAMES_FOR_ONE_MOVE
+    clock.tick(consts.FPS)
 
 pygame.quit()
