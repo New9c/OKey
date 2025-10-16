@@ -1,3 +1,7 @@
+MOUSE_ON = True
+MIC_ON = True
+
+TEXT_LEN = 63
 CHANGE = {
     "e": "f",
     "r": "p",
@@ -26,6 +30,7 @@ CHANGE = {
     "minus": "-",
     "equal": "=",
     "enter": "󰌑 ",
+    "space": "␣",
     "backspace": "󰁮 ",
     "esc": "󰩈 ",
     "left": " ",
@@ -57,7 +62,20 @@ SHIFT_CHANGE = {
 }
 WORKFLOW_CHANGE = {
     "Mod+Alt+n": "  Mod+Alt+n   ",
-    "Mod+Alt+i": "  Mod+Alt+i   "
+    "Mod+Alt+i": "  Mod+Alt+i   ",
+    "Mod+Alt+l": "  Mod+Alt+l   ",
+    "Mod+Alt+k": "  Mod+Alt+k   ",
+    "Mod+Alt+e": "  Mod+Alt+e   ",
+    "Alt+␣": "  Alt+␣   ",
+    "Mod+h": "   Mod+h    ",
+    "Mod+n": "   Mod+n    ",
+    "Mod+i": "   Mod+i    ",
+    "Mod+o": "  Mod+o   ",
+    "Mod+b": "󰈹  Mod+b  󰈹 ",
+    "Mod+e": "  Mod+e   ",
+    "Mod+v": "  Mod+v   ",
+    "Ctrl+d": "   Ctrl+d    ",
+    "Ctrl+u": "   Ctrl+u    "
 }
 
 WINDOW_SIZE = (1930, 70)
@@ -75,5 +93,5 @@ ANTIALIAS_ENABLED = True
 FPS = 30
 CLEAR_SCREEN_FRAMES = 60
 
-FONT_PATH = "JetBrainsMonoNerdFont-Regular.ttf"
+FONT_PATH = "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
 FONT_SIZE = 50

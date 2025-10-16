@@ -1,35 +1,42 @@
+import consts
+
 FRAMES_FOR_ONE_MOVE = 60
-roll = 0
 ACTION_INTERVAL = 4
-def face(frame):
+roll = 0
+
+def face(frame: int, mouse_clicked: bool = False):
     global roll
     if frame == 1:
         roll = (roll+1)%ACTION_INTERVAL
     if roll==0:
-        return move(frame)
-    return base(frame)
+        return move(frame, mouse_clicked)
+    return base(frame, mouse_clicked)
 
-def base(frame) -> str:
+def base(frame: int, mouse_clicked: bool = False) -> str:
+    if mouse_clicked:
+        return "󰆿 u 󰆿".center(consts.TEXT_LEN)
     if frame<60-5:
-        return "O u O".center(64)
-    return "1 u 1".center(64)
+        return "O u O".center(consts.TEXT_LEN)
+    return "I u I".center(consts.TEXT_LEN)
 
-def move(frame) -> str:
+def move(frame: int, mouse_clicked: bool = False) -> str:
+    eye = '󰆿' if mouse_clicked else 'O'
+    look = f"{eye} u {eye}"
     if frame>60:
         raise ValueError("Frame is too big")
     if frame <= 8:
-        return " O u O   ".center(64)
+        return f" {look}   ".center(consts.TEXT_LEN)
     elif frame <= 15:
-        return "O u O    ".center(64)
+        return f"{look}    ".center(consts.TEXT_LEN)
     elif frame <= 23:
-        return " O u O   ".center(64)
+        return f" {look}   ".center(consts.TEXT_LEN)
     elif frame <= 30:
-        return "  O u O  ".center(64)
+        return f"  {look}  ".center(consts.TEXT_LEN)
     elif frame <= 38:
-        return "   O u O ".center(64)
+        return f"   {look} ".center(consts.TEXT_LEN)
     elif frame <= 45:
-        return "    O u O".center(64)
+        return f"    {look}".center(consts.TEXT_LEN)
     elif frame <= 53:
-        return "   O u O ".center(64)
-    return "  O u O  ".center(64)
+        return f"   {look} ".center(consts.TEXT_LEN)
+    return f"  {look}  ".center(consts.TEXT_LEN)
 

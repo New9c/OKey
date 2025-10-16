@@ -6,6 +6,7 @@ import face
 
 # Initialize pygame
 ctrl, mod, alt, shift = False, False, False, False
+mouse_clicked = False
 specials = False
 frames_left_to_show_text = 0
 frame_time = 0
@@ -59,16 +60,16 @@ def display(text: str):
         if was_special:
             events = ""
         events += text
-    if len(events)>64:
-        events = events[-64:]
+    if len(events)>consts.TEXT_LEN:
+        events = events[-consts.TEXT_LEN:]
     if events in consts.WORKFLOW_CHANGE:
         events = consts.WORKFLOW_CHANGE[events]
 
 def render(text):
     global frames_left_to_show_text
     if frames_left_to_show_text>0:
-        return text.center(64) 
-    return face.face(frame_time+1)
+        return text.center(consts.TEXT_LEN) 
+    return face.face(frame_time+1, mouse_clicked)
 
 pygame.init()
 screen = pygame.display.set_mode(consts.WINDOW_SIZE)
@@ -96,17 +97,21 @@ def listen_keyboard():
             key_event = str(evdev.categorize(event))
             display(key_event)
 def listen_mouse():
-    global events
+    global events, mouse_clicked
     if mouse is None:
         raise ValueError("Couldn't find mouse input :c")
     for event in mouse.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
-            print(key_event)
+            if key_event.endswith("down"):
+                mouse_clicked = True
+            elif key_event.endswith("up"):
+                mouse_clicked = False
 
 # Start threads to listen on keyboard and mouse
 threading.Thread(target=listen_keyboard, daemon=True).start()
-threading.Thread(target=listen_mouse, daemon=True).start()
+if consts.MOUSE_ON:
+    threading.Thread(target=listen_mouse, daemon=True).start()
 
 running = True
 while running:
