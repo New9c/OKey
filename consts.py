@@ -1,13 +1,15 @@
 MOUSE_ON = True
 MIC_ON = True
 
+ACTION_INTERVAL = 4
+
 TEXT_LEN = 63
 CHANGE = {
     "e": "f",
     "r": "p",
     "t": "g",
     "y": "j",
-    "u": "k",
+    "u": "l",
     "i": "u",
     "o": "y",
     "p": ";",

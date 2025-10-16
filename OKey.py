@@ -1,10 +1,12 @@
 import evdev
 import pygame
 import threading
+import sounddevice as sd
+
 import consts
 import face
+import mic
 
-# Initialize pygame
 ctrl, mod, alt, shift = False, False, False, False
 mouse_clicked = False
 specials = False
@@ -12,6 +14,7 @@ frames_left_to_show_text = 0
 frame_time = 0
 events = ""
 specials = False
+stream = None
 
 def display(text: str):
     global frames_left_to_show_text, ctrl, alt, mod, shift, events, specials
@@ -69,11 +72,13 @@ def render(text):
     global frames_left_to_show_text
     if frames_left_to_show_text>0:
         return text.center(consts.TEXT_LEN) 
-    return face.face(frame_time+1, mouse_clicked)
+    return face.face(frame_time+1, mouse_clicked, mic.talking_frames>0)
 
 pygame.init()
 screen = pygame.display.set_mode(consts.WINDOW_SIZE)
 pygame.display.set_caption(consts.WINDOW_NAME)
+if consts.MIC_ON:
+    stream = sd.InputStream(callback=mic.callback)
 
 PYGAME_FONT = pygame.font.Font(consts.FONT_PATH, consts.FONT_SIZE)
 
@@ -114,6 +119,8 @@ if consts.MOUSE_ON:
     threading.Thread(target=listen_mouse, daemon=True).start()
 
 running = True
+if stream is not None:
+    stream.start()
 while running:
     screen.fill(consts.BG_COLOR)
 
@@ -129,7 +136,15 @@ while running:
         frames_left_to_show_text -= 1
     else:
         events = ""
+
+    if mic.talking_frames>0:
+        mic.talking_frames -= 1
+
     frame_time = (frame_time+1)%face.FRAMES_FOR_ONE_MOVE
+    mic.talking_frames
     clock.tick(consts.FPS)
 
 pygame.quit()
+if stream is not None:
+    stream.stop()
+    stream.close()

@@ -1,3 +1,5 @@
 evdev
 pygame
+numpy
+sounddevice
 pyinstaller

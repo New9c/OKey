@@ -1,13 +1,14 @@
 import consts
 
 FRAMES_FOR_ONE_MOVE = 60
-ACTION_INTERVAL = 4
 roll = 0
 
-def face(frame: int, mouse_clicked: bool = False):
+def face(frame: int, mouse_clicked: bool = False, talking: bool = False):
     global roll
+    if talking:
+        return "O  O".center(consts.TEXT_LEN)
     if frame == 1:
-        roll = (roll+1)%ACTION_INTERVAL
+        roll = (roll+1)%consts.ACTION_INTERVAL
     if roll==0:
         return move(frame, mouse_clicked)
     return base(frame, mouse_clicked)
