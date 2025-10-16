@@ -6,6 +6,7 @@ import sounddevice as sd
 import consts
 import face
 import mic
+import twitch
 
 ctrl, mod, alt, shift = False, False, False, False
 mouse_clicked = False
@@ -70,7 +71,9 @@ def display(text: str):
 
 def render(text):
     global frames_left_to_show_text
-    if frames_left_to_show_text>0:
+    if twitch.message_frames>0:
+        return twitch.twitch_msg.center(consts.TEXT_LEN) 
+    elif frames_left_to_show_text>0:
         return text.center(consts.TEXT_LEN) 
     return face.face(frame_time+1, mouse_clicked, mic.talking_frames>0)
 
@@ -118,17 +121,22 @@ threading.Thread(target=listen_keyboard, daemon=True).start()
 if consts.MOUSE_ON:
     threading.Thread(target=listen_mouse, daemon=True).start()
 
+threading.Thread(target=twitch.start, daemon=True).start()
+
 running = True
 if stream is not None:
     stream.start()
 while running:
-    screen.fill(consts.BG_COLOR)
+    if twitch.message_frames>0:
+        screen.fill(consts.TWITCH_COLOR)
+    else:
+        screen.fill(consts.BG_COLOR)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    text_surface = PYGAME_FONT.render(render(events), consts.ANTIALIAS_ENABLED, consts.WHITE)
+    text_surface = PYGAME_FONT.render(render(events), consts.TEXT_ANTIALIAS, consts.TEXT_COLOR)
     screen.blit(text_surface, consts.TEXT_POS)
 
     pygame.display.flip()
@@ -139,9 +147,10 @@ while running:
 
     if mic.talking_frames>0:
         mic.talking_frames -= 1
+    if twitch.message_frames>0:
+        twitch.message_frames -= 1
 
     frame_time = (frame_time+1)%face.FRAMES_FOR_ONE_MOVE
-    mic.talking_frames
     clock.tick(consts.FPS)
 
 pygame.quit()

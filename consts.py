@@ -4,6 +4,28 @@ MIC_ON = True
 ACTION_INTERVAL = 4
 
 TEXT_LEN = 63
+
+WINDOW_SIZE = (1930, 70)
+WINDOW_NAME = "OKey"
+
+WHITE = (255, 255, 255)
+TEXT_COLOR = WHITE
+BG_COLOR = (18, 16, 32)
+TWITCH_COLOR = (137, 90, 209)
+
+TEXT_POS = (10, 5)
+
+KEYBOARD_NAME = "keyd virtual keyboard"
+MOUSE_NAME = "Logitech"
+
+TEXT_ANTIALIAS = True
+FPS = 30
+CLEAR_SCREEN_FRAMES = 60
+CLEAR_TWITCH_FRAMES = 120
+
+FONT_PATH = "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
+FONT_SIZE = 50
+
 CHANGE = {
     "e": "f",
     "r": "p",
@@ -79,21 +101,3 @@ WORKFLOW_CHANGE = {
     "Ctrl+d": "   Ctrl+d    ",
     "Ctrl+u": "   Ctrl+u    "
 }
-
-WINDOW_SIZE = (1930, 70)
-WINDOW_NAME = "OKey"
-
-WHITE = (255, 255, 255)
-BG_COLOR = (18, 16, 32)
-
-TEXT_POS = (10, 5)
-
-KEYBOARD_NAME = "keyd virtual keyboard"
-MOUSE_NAME = "Logitech"
-
-ANTIALIAS_ENABLED = True
-FPS = 30
-CLEAR_SCREEN_FRAMES = 60
-
-FONT_PATH = "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
-FONT_SIZE = 50
