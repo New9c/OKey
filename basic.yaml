@@ -5,6 +5,10 @@ mouse_name: "mouse"
 
 mouse_on: true
 mic_on: false
+# How loud you need to be to trigger talking
+mic_threshold: 3
+# This is simply to make it easier to find the threshold
+output_loudness: false
 
 # How often special actions of the face are done
 # ex: 4 = 1 moving face + 3 normal (blinking) faces

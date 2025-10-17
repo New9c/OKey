@@ -29,6 +29,8 @@ while try_setting:
         SHOW_BASIC_SETTINGS_ON_START = data['show_basic_settings_on_start']
         MOUSE_ON = data['mouse_on']
         MIC_ON = data['mic_on']
+        MIC_THRESHOLD = data['mic_threshold']
+        OUTPUT_LOUDNESS = data['output_loudness']
         
         ACTION_INTERVAL = data['action_interval']
         
