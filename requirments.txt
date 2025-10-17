@@ -3,3 +3,6 @@ pygame
 numpy
 sounddevice
 pyinstaller
+twitch-chat-irc
+platformdirs
+PyYAML
