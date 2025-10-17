@@ -1,51 +1,56 @@
 show_basic_settings_on_start: true
-# It is recommended that you turn these two into your exact device names
+
+# You should change these into your precise device names
 keyboard_name: "keyboard"
 mouse_name: "mouse"
 
 mouse_on: true
 mic_on: false
-# How loud you need to be to trigger talking
+# Threshold for whether you are talking
 mic_threshold: 3
-# This is simply to make it easier to find the threshold
+# Made to check what the threshold should be
 output_loudness: false
 
-# How often special actions of the face are done
-# ex: 4 = 1 moving face + 3 normal (blinking) faces
+# How often the OuO moves
+# Using 4, the OuO will move once, then blink 3 times, and repeat
 action_interval: 4
 
-# How many characters are allowed at the same time
+# How many chars can be shown at once
 text_len: 63
 
 window_size: [1930, 70]
 window_name: "OKey"
 
-# RGB
 text_color: [255, 255, 255]
 bg_color: [18, 16, 32]
+twitch_color: [137, 90, 209]
 
 text_pos: [10, 5]
 
-
-# Makes text a bit smoother
+# Makes the characters smoother
 text_antialias: true
 fps: 30
-clear_screen_frames: 60
+clear_text_frames: 60
+clear_twitch_frames: 150
 
-font_path: "/home/ninc/.config/OKey/JetBrainsMonoNerdFont-Regular.ttf"
+font_path: "FONT_PATH"
 font_size: 50
 
 using_twitch: false
-twitch_username: "your-username"
+twitch_username: "your-name"
 # You can make your oauth token with twitchtokengenerator.com, here is a quick link
 # https://twitchtokengenerator.com/?scope=chat:read+chat:edit+channel:moderate+user:read:follows+user:read:emotes+user:read:chat+user:write:chat+moderator:manage:chat_messages+moderator:manage:banned_users+moderator:manage:chat_settings+moderator:manage:shoutouts+channel:manage:broadcast+channel:manage:moderators+channel:manage:vips+channel:manage:raids+channel:edit:commercial&auth=auth_stay
 twitch_oauth: "oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-clear_twitch_frames: 150
-twitch_color: [137, 90, 209]
+# Which streamers chat to check, usually it's your own
+which_chat_to_check: "your-name"
+# Which names to ignore, usually your bots and yourself
+twitch_ignore_names:
+    - "your-name"
+    - "NightBot"
 
 # Add more characters mainly if you have a different keyboard layout
 change:
-    "semicolon": "o"
+    "semicolon": ";"
     "comma": ","
     "dot": "."
     "slash": "/"
@@ -104,3 +109,4 @@ shift_change:
 # Big look changes for spice
 # ex: "Mod+Alt+n": "  Mod+Alt+n   "
 workflow_change:
+    "": ""

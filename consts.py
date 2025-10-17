@@ -9,11 +9,13 @@ CONFIG_DIR = user_config_dir("OKey")
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yaml')
 MAIN_FONT = os.path.join(CONFIG_DIR, 'JetBrainsMonoNerdFont-Regular.ttf')
 
-# Replace FONT_PATH with real path
 with open(BASE_CONFIG, 'r') as file:
+    BASE_SETTINGS = yaml.load(file, Loader=yaml.SafeLoader)
+# Replace FONT_PATH with real path
+with open(CONFIG_FILE, 'r') as file:
     content = file.read()
 new_content = content.replace("FONT_PATH", MAIN_FONT)
-with open(BASE_CONFIG, 'w') as file:
+with open(CONFIG_FILE, 'w') as file:
     file.write(new_content)
 
 if not os.path.isfile(CONFIG_FILE):
@@ -22,58 +24,23 @@ if not os.path.isfile(CONFIG_FILE):
     shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
     shutil.copyfile(BASE_FONT, MAIN_FONT)
 
-while try_setting:
-    try:
-        with open(CONFIG_FILE, 'r') as f:
-            data = yaml.load(f, Loader=yaml.SafeLoader)
-        SHOW_BASIC_SETTINGS_ON_START = data['show_basic_settings_on_start']
-        MOUSE_ON = data['mouse_on']
-        MIC_ON = data['mic_on']
-        MIC_THRESHOLD = data['mic_threshold']
-        OUTPUT_LOUDNESS = data['output_loudness']
-        
-        ACTION_INTERVAL = data['action_interval']
-        
-        TEXT_LEN = data['text_len']
-        
-        WINDOW_SIZE = tuple(data['window_size'])
-        WINDOW_NAME = data['window_name']
-        
-        TEXT_COLOR = tuple(data['text_color'])
-        BG_COLOR = tuple(data['bg_color'])
-        TWITCH_COLOR = tuple(data['twitch_color'])
-        
-        TEXT_POS = tuple(data['text_pos'])
-        
-        KEYBOARD_NAME = data['keyboard_name']
-        MOUSE_NAME = data['mouse_name']
-        
-        TEXT_ANTIALIAS = data['text_antialias']
-        FPS = data['fps']
-        CLEAR_SCREEN_FRAMES = data['clear_screen_frames']
-        CLEAR_TWITCH_FRAMES = data['clear_twitch_frames']
-        
-        FONT_PATH = data['font_path']
-        FONT_SIZE = data['font_size']
-        
-        CHANGE = data['change']
-        SHIFT_CHANGE = data['shift_change']
-        WORKFLOW_CHANGE = data['workflow_change']
-
-        USING_TWITCH = data['using_twitch']
-        TWITCH_USERNAME = data['twitch_username']
-        TWITCH_OAUTH = data['twitch_oauth']
-
-        found_valid_config = True
-        try_setting = False
-    except AttributeError and KeyError:
-        ans = input("Found invalid config file, remake default config file(y/n)? ")
+with open(CONFIG_FILE, 'r') as file:
+    SETTINGS = yaml.load(file, Loader=yaml.SafeLoader)
+for setting in BASE_SETTINGS:
+    if setting not in SETTINGS:
+        ans = input(f"{setting} not found in config file, reset to default config (y/n)? ")
         while ans.lower() not in ['yes', 'no', 'y', 'n']:
             print("Please input y/n/yes/no")
-            ans = input("Found invalid config file, remake default config file(y/n)? ")
+            ans = input(f"{setting} not found in config file, reset to default config (y/n)? ")
         if 'y' in ans.lower():
-            print("Making basic config...")
+            print("Resetting config...")
             shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
             shutil.copyfile(BASE_FONT, MAIN_FONT)
-        else:
-            try_setting = False
+            break
+with open(CONFIG_FILE, 'r') as file:
+    SETTINGS = yaml.load(file, Loader=yaml.SafeLoader)
+for setting in BASE_SETTINGS:
+    if setting not in SETTINGS:
+        print("Invalid config file found, using defaults for now")
+        SETTINGS = BASE_SETTINGS
+        SETTINGS["font_path"] = BASE_FONT
