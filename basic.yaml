@@ -1,0 +1,101 @@
+mouse_on: true
+mic_on: true
+
+action_interval: 4
+
+text_len: 63
+
+window_size: [1930, 70]
+window_name: "OKey"
+
+text_color: [255, 255, 255]
+bg_color: [18, 16, 32]
+twitch_color: [137, 90, 209]
+
+text_pos: [10, 5]
+
+keyboard_name: "keyd virtual keyboard"
+mouse_name: "Logitech"
+
+text_antialias: true
+fps: 30
+clear_screen_frames: 60
+clear_twitch_frames: 120
+
+font_path: "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
+font_size: 50
+
+change:
+    "e": "f"
+    "r": "p"
+    "t": "g"
+    "y": "j"
+    "u": "l"
+    "i": "u"
+    "o": "y"
+    "p": ";"
+    "s": "r"
+    "d": "s"
+    "f": "t"
+    "g": "d"
+    "j": "n"
+    "k": "e"
+    "l": "i"
+    "semicolon": "o"
+    "n": "k"
+    "comma": ","
+    "dot": "."
+    "slash": "/"
+    "apostrophe": "'"
+    "leftbrace": "["
+    "rightbrace": "]"
+    "backslash": "\\"
+    "minus": "-"
+    "equal": "="
+    "enter": "󰌑 "
+    "space": "␣"
+    "backspace": "󰁮 "
+    "esc": "󰩈 "
+    "left": " "
+    "right": " "
+    "up": " "
+    "down": " "
+
+shift_change:
+    "1": "!"
+    "2": "@"
+    "3": "#"
+    "4": "$"
+    "5": "%"
+    "6": "^"
+    "7": "&"
+    "8": "*"
+    "9": "("
+    "0": ")"
+    "-": "_"
+    "=": "+"
+    "\\": "|"
+    "[": "{"
+    "]": "}"
+    ";": ":"
+    "'": '"'
+    ",": '<'
+    ".": '>'
+    "/": '?'
+
+workflow_change:
+    "Mod+Alt+n": "  Mod+Alt+n   "
+    "Mod+Alt+i": "  Mod+Alt+i   "
+    "Mod+Alt+l": "  Mod+Alt+l   "
+    "Mod+Alt+k": "  Mod+Alt+k   "
+    "Mod+Alt+e": "  Mod+Alt+e   "
+    "Alt+␣": "  Alt+␣   "
+    "Mod+h": "   Mod+h    "
+    "Mod+n": "   Mod+n    "
+    "Mod+i": "   Mod+i    "
+    "Mod+o": "  Mod+o   "
+    "Mod+b": "󰈹  Mod+b  󰈹 "
+    "Mod+e": "  Mod+e   "
+    "Mod+v": "  Mod+v   "
+    "Ctrl+d": "   Ctrl+d    "
+    "Ctrl+u": "   Ctrl+u    "

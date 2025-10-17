@@ -1,103 +1,59 @@
-MOUSE_ON = True
-MIC_ON = True
+import os, yaml, shutil
 
-ACTION_INTERVAL = 4
+found_valid_config = False
+try_setting = True
+BASE_CONFIG = "basic.yaml"
+CONFIG_DIR = os.path.expanduser('~/.config/OKey')
+CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yaml')
 
-TEXT_LEN = 63
+if not os.path.isfile(CONFIG_FILE):
+    print("~/.config/OKey/config.yaml not found. Making basic config...")
+    os.makedirs(CONFIG_DIR, exist_ok=True)  # safely create directory if needed
+    shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
 
-WINDOW_SIZE = (1930, 70)
-WINDOW_NAME = "OKey"
-
-WHITE = (255, 255, 255)
-TEXT_COLOR = WHITE
-BG_COLOR = (18, 16, 32)
-TWITCH_COLOR = (137, 90, 209)
-
-TEXT_POS = (10, 5)
-
-KEYBOARD_NAME = "keyd virtual keyboard"
-MOUSE_NAME = "Logitech"
-
-TEXT_ANTIALIAS = True
-FPS = 30
-CLEAR_SCREEN_FRAMES = 60
-CLEAR_TWITCH_FRAMES = 120
-
-FONT_PATH = "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
-FONT_SIZE = 50
-
-CHANGE = {
-    "e": "f",
-    "r": "p",
-    "t": "g",
-    "y": "j",
-    "u": "l",
-    "i": "u",
-    "o": "y",
-    "p": ";",
-    "s": "r",
-    "d": "s",
-    "f": "t",
-    "g": "d",
-    "j": "n",
-    "k": "e",
-    "l": "i",
-    "semicolon": "o",
-    "n": "k",
-    "comma": ",",
-    "dot": ".",
-    "slash": "/",
-    "apostrophe": "'",
-    "leftbrace": "[",
-    "rightbrace": "]",
-    "backslash": "\\",
-    "minus": "-",
-    "equal": "=",
-    "enter": "󰌑 ",
-    "space": "␣",
-    "backspace": "󰁮 ",
-    "esc": "󰩈 ",
-    "left": " ",
-    "right": " ",
-    "up": " ",
-    "down": " ",
-}
-SHIFT_CHANGE = {
-    "1": "!",
-    "2": "@",
-    "3": "#",
-    "4": "$",
-    "5": "%",
-    "6": "^",
-    "7": "&",
-    "8": "*",
-    "9": "(",
-    "0": ")",
-    "-": "_",
-    "=": "+",
-    "\\": "|",
-    "[": "{",
-    "]": "}",
-    ";": ":",
-    "'": '"',
-    ",": '<',
-    ".": '>',
-    "/": '?',
-}
-WORKFLOW_CHANGE = {
-    "Mod+Alt+n": "  Mod+Alt+n   ",
-    "Mod+Alt+i": "  Mod+Alt+i   ",
-    "Mod+Alt+l": "  Mod+Alt+l   ",
-    "Mod+Alt+k": "  Mod+Alt+k   ",
-    "Mod+Alt+e": "  Mod+Alt+e   ",
-    "Alt+␣": "  Alt+␣   ",
-    "Mod+h": "   Mod+h    ",
-    "Mod+n": "   Mod+n    ",
-    "Mod+i": "   Mod+i    ",
-    "Mod+o": "  Mod+o   ",
-    "Mod+b": "󰈹  Mod+b  󰈹 ",
-    "Mod+e": "  Mod+e   ",
-    "Mod+v": "  Mod+v   ",
-    "Ctrl+d": "   Ctrl+d    ",
-    "Ctrl+u": "   Ctrl+u    "
-}
+while try_setting:
+    try:
+        with open(CONFIG_FILE, 'r') as f:
+            data = yaml.load(f, Loader=yaml.SafeLoader)
+        MOUSE_ON = data['mouse_on']
+        MIC_ON = data['mic_on']
+        
+        ACTION_INTERVAL = data['action_interval']
+        
+        TEXT_LEN = data['text_len']
+        
+        WINDOW_SIZE = tuple(data['window_size'])
+        WINDOW_NAME = data['window_name']
+        
+        TEXT_COLOR = tuple(data['text_color'])
+        BG_COLOR = tuple(data['bg_color'])
+        TWITCH_COLOR = tuple(data['twitch_color'])
+        
+        TEXT_POS = tuple(data['text_pos'])
+        
+        KEYBOARD_NAME = data['keyboard_name']
+        MOUSE_NAME = data['mouse_name']
+        
+        TEXT_ANTIALIAS = data['text_antialias']
+        FPS = data['fps']
+        CLEAR_SCREEN_FRAMES = data['clear_screen_frames']
+        CLEAR_TWITCH_FRAMES = data['clear_twitch_frames']
+        
+        FONT_PATH = data['font_path']
+        FONT_SIZE = data['font_size']
+        
+        CHANGE = data['change']
+        SHIFT_CHANGE = data['shift_change']
+        WORKFLOW_CHANGE = data['workflow_change']
+        found_valid_config = True
+        try_setting = False
+    except AttributeError and KeyError:
+        ans = input("Found invalid config file, remake default config file(y/n)? ")
+        while ans.lower() not in ['yes', 'no', 'y', 'n']:
+            print("Please input y/n/yes/no")
+            ans = input("Found invalid config file, remake default config file(y/n)? ")
+        if 'y' in ans.lower():
+            print("Making basic config...")
+            shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
+        else:
+            try_setting = False
