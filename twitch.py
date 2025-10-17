@@ -2,11 +2,11 @@ from twitch_chat_irc import twitch_chat_irc
 import consts
 message_frames = 0
 twitch_msg = ""
-connection = twitch_chat_irc.TwitchChatIRC()
+connection = twitch_chat_irc.TwitchChatIRC(consts.TWITCH_USERNAME, consts.TWITCH_OAUTH, True)
 
 def show_twitch_msg(message):
     global message_frames, twitch_msg
-    if message["display-name"]!="a username":
+    if message["display-name"]!=consts.TWITCH_USERNAME:
         message_frames = 90
         twitch_msg = f"{message["display-name"]}: {message["message"]}"
         print(twitch_msg)

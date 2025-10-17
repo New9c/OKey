@@ -1,5 +1,8 @@
+import os
 import evdev
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 import pygame
+
 import threading
 import sounddevice as sd
 
@@ -7,7 +10,6 @@ import consts
 import face
 import mic
 import twitch
-
 ctrl, mod, alt, shift = False, False, False, False
 mouse_clicked = False
 specials = False
@@ -90,16 +92,27 @@ clock = pygame.time.Clock()
 
 keyboard = mouse = None
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
+if consts.SHOW_BASIC_SETTINGS_ON_START:
+    print(f"Tracking mouse = {consts.MOUSE_ON}")
+    print(f"Tracking whether talking = {consts.MIC_ON}")
+    print(f"Checking twitch chat with iirc = {consts.USING_TWITCH}")
+    print()
 for device in devices:
     if consts.KEYBOARD_NAME in device.name:
         keyboard = evdev.InputDevice(device.path)
+        if consts.SHOW_BASIC_SETTINGS_ON_START:
+            print("    Keyboard: ", end="")
     elif consts.MOUSE_NAME in device.name:
         mouse = evdev.InputDevice(device.path)
+        if consts.SHOW_BASIC_SETTINGS_ON_START:
+            print("   󰍽 Mouse: ", end="")
+    if consts.SHOW_BASIC_SETTINGS_ON_START:
+        print(device.name)
 
 def listen_keyboard():
     global events
     if keyboard is None:
-        raise ValueError("Couldn't find keyboard input :c")
+        raise ValueError(f"Couldn't find keyboard input :c Try setting the keyboard_name in {consts.CONFIG_FILE} to one of the printed devices on startup")
     for event in keyboard.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
@@ -107,7 +120,7 @@ def listen_keyboard():
 def listen_mouse():
     global events, mouse_clicked
     if mouse is None:
-        raise ValueError("Couldn't find mouse input :c")
+        raise ValueError(f"Couldn't find mouse input :c Try setting the mouse_name in {consts.CONFIG_FILE} to one of the printed devices on startup, or have mouse_on set to false")
     for event in mouse.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
@@ -120,8 +133,8 @@ def listen_mouse():
 threading.Thread(target=listen_keyboard, daemon=True).start()
 if consts.MOUSE_ON:
     threading.Thread(target=listen_mouse, daemon=True).start()
-
-threading.Thread(target=twitch.start, daemon=True).start()
+if consts.USING_TWITCH:
+    threading.Thread(target=twitch.start, daemon=True).start()
 
 running = True
 if stream is not None:

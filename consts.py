@@ -1,20 +1,32 @@
+from platformdirs import user_config_dir
 import os, yaml, shutil
 
 found_valid_config = False
 try_setting = True
 BASE_CONFIG = "basic.yaml"
-CONFIG_DIR = os.path.expanduser('~/.config/OKey')
+BASE_FONT = "JetBrainsMonoNerdFont-Regular.ttf"
+CONFIG_DIR = user_config_dir("OKey")
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yaml')
+MAIN_FONT = os.path.join(CONFIG_DIR, 'JetBrainsMonoNerdFont-Regular.ttf')
+
+# Replace FONT_PATH with real path
+with open(BASE_CONFIG, 'r') as file:
+    content = file.read()
+new_content = content.replace("FONT_PATH", MAIN_FONT)
+with open(BASE_CONFIG, 'w') as file:
+    file.write(new_content)
 
 if not os.path.isfile(CONFIG_FILE):
-    print("~/.config/OKey/config.yaml not found. Making basic config...")
+    print(f"{CONFIG_FILE} not found. Making basic config...")
     os.makedirs(CONFIG_DIR, exist_ok=True)  # safely create directory if needed
     shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
+    shutil.copyfile(BASE_FONT, MAIN_FONT)
 
 while try_setting:
     try:
         with open(CONFIG_FILE, 'r') as f:
             data = yaml.load(f, Loader=yaml.SafeLoader)
+        SHOW_BASIC_SETTINGS_ON_START = data['show_basic_settings_on_start']
         MOUSE_ON = data['mouse_on']
         MIC_ON = data['mic_on']
         
@@ -45,6 +57,11 @@ while try_setting:
         CHANGE = data['change']
         SHIFT_CHANGE = data['shift_change']
         WORKFLOW_CHANGE = data['workflow_change']
+
+        USING_TWITCH = data['using_twitch']
+        TWITCH_USERNAME = data['twitch_username']
+        TWITCH_OAUTH = data['twitch_oauth']
+
         found_valid_config = True
         try_setting = False
     except AttributeError and KeyError:
@@ -55,5 +72,6 @@ while try_setting:
         if 'y' in ans.lower():
             print("Making basic config...")
             shutil.copyfile(BASE_CONFIG, CONFIG_FILE)
+            shutil.copyfile(BASE_FONT, MAIN_FONT)
         else:
             try_setting = False

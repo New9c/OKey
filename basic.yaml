@@ -1,48 +1,47 @@
-mouse_on: true
-mic_on: true
+show_basic_settings_on_start: true
+# It is recommended that you turn these two into your exact device names
+keyboard_name: "keyboard"
+mouse_name: "mouse"
 
+mouse_on: true
+mic_on: false
+
+# How often special actions of the face are done
+# ex: 4 = 1 moving face + 3 normal (blinking) faces
 action_interval: 4
 
+# How many characters are allowed at the same time
 text_len: 63
 
 window_size: [1930, 70]
 window_name: "OKey"
 
+# RGB
 text_color: [255, 255, 255]
 bg_color: [18, 16, 32]
-twitch_color: [137, 90, 209]
 
 text_pos: [10, 5]
 
-keyboard_name: "keyd virtual keyboard"
-mouse_name: "Logitech"
 
+# Makes text a bit smoother
 text_antialias: true
 fps: 30
 clear_screen_frames: 60
-clear_twitch_frames: 120
 
-font_path: "/home/ninc/.local/share/fonts/JetBrains/JetBrainsMonoNerdFont-Regular.ttf"
+font_path: "/home/ninc/.config/OKey/JetBrainsMonoNerdFont-Regular.ttf"
 font_size: 50
 
+using_twitch: false
+twitch_username: "your-username"
+# You can make your oauth token with twitchtokengenerator.com, here is a quick link
+# https://twitchtokengenerator.com/?scope=chat:read+chat:edit+channel:moderate+user:read:follows+user:read:emotes+user:read:chat+user:write:chat+moderator:manage:chat_messages+moderator:manage:banned_users+moderator:manage:chat_settings+moderator:manage:shoutouts+channel:manage:broadcast+channel:manage:moderators+channel:manage:vips+channel:manage:raids+channel:edit:commercial&auth=auth_stay
+twitch_oauth: "oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+clear_twitch_frames: 150
+twitch_color: [137, 90, 209]
+
+# Add more characters mainly if you have a different keyboard layout
 change:
-    "e": "f"
-    "r": "p"
-    "t": "g"
-    "y": "j"
-    "u": "l"
-    "i": "u"
-    "o": "y"
-    "p": ";"
-    "s": "r"
-    "d": "s"
-    "f": "t"
-    "g": "d"
-    "j": "n"
-    "k": "e"
-    "l": "i"
     "semicolon": "o"
-    "n": "k"
     "comma": ","
     "dot": "."
     "slash": "/"
@@ -61,6 +60,7 @@ change:
     "up": " "
     "down": " "
 
+# Change what shift does to a character
 shift_change:
     "1": "!"
     "2": "@"
@@ -83,19 +83,6 @@ shift_change:
     ".": '>'
     "/": '?'
 
+# Big look changes for spice
+# ex: "Mod+Alt+n": "  Mod+Alt+n   "
 workflow_change:
-    "Mod+Alt+n": "  Mod+Alt+n   "
-    "Mod+Alt+i": "  Mod+Alt+i   "
-    "Mod+Alt+l": "  Mod+Alt+l   "
-    "Mod+Alt+k": "  Mod+Alt+k   "
-    "Mod+Alt+e": "  Mod+Alt+e   "
-    "Alt+␣": "  Alt+␣   "
-    "Mod+h": "   Mod+h    "
-    "Mod+n": "   Mod+n    "
-    "Mod+i": "   Mod+i    "
-    "Mod+o": "  Mod+o   "
-    "Mod+b": "󰈹  Mod+b  󰈹 "
-    "Mod+e": "  Mod+e   "
-    "Mod+v": "  Mod+v   "
-    "Ctrl+d": "   Ctrl+d    "
-    "Ctrl+u": "   Ctrl+u    "
