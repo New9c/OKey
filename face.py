@@ -6,7 +6,8 @@ roll = 0
 def face(frame: int, mouse_clicked: bool = False, talking: bool = False):
     global roll
     if talking:
-        return "O  O".center(SETTINGS["text_len"])
+        eye = SETTINGS["face_click_eye"] if mouse_clicked else SETTINGS["face_normal_eye"]
+        return f"{eye} {SETTINGS["face_talking_mouth"]} {eye}".center(SETTINGS["text_len"])
     if frame == 1:
         roll = (roll+1)%SETTINGS["action_interval"]
     if roll==0:
@@ -14,15 +15,18 @@ def face(frame: int, mouse_clicked: bool = False, talking: bool = False):
     return base(frame, mouse_clicked)
 
 def base(frame: int, mouse_clicked: bool = False) -> str:
+    click_face = f"{SETTINGS["face_click_eye"]} {SETTINGS["face_normal_mouth"]} {SETTINGS["face_click_eye"]}"
+    normal_face = f"{SETTINGS["face_normal_eye"]} {SETTINGS["face_normal_mouth"]} {SETTINGS["face_normal_eye"]}"
+    blink_face = f"{SETTINGS["face_blink_eye"]} {SETTINGS["face_normal_mouth"]} {SETTINGS["face_blink_eye"]}"
     if mouse_clicked:
-        return "󰆿 u 󰆿".center(SETTINGS["text_len"])
+        return click_face.center(SETTINGS["text_len"])
     if frame<60-5:
-        return "O u O".center(SETTINGS["text_len"])
-    return "I u I".center(SETTINGS["text_len"])
+        return normal_face.center(SETTINGS["text_len"])
+    return blink_face.center(SETTINGS["text_len"])
 
 def move(frame: int, mouse_clicked: bool = False) -> str:
-    eye = '󰆿' if mouse_clicked else 'O'
-    look = f"{eye} u {eye}"
+    eye = SETTINGS["face_click_eye"] if mouse_clicked else SETTINGS["face_normal_eye"]
+    look = f"{eye} {SETTINGS["face_normal_mouth"]} {eye}"
     if frame>60:
         raise ValueError("Frame is too big")
     if frame <= 8:
