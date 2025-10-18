@@ -50,12 +50,19 @@ with open(CONFIG_FILE, 'r') as file:
     SETTINGS = yaml.load(file, Loader=yaml.SafeLoader)
 for setting in BASE_SETTINGS:
     if setting not in SETTINGS:
-        ans = input(f"{setting} not found in config file, reset to default config (y/n)? ")
+        ans = input(f"{setting} not found in config file, backup old config and create a new one(y/n)? ")
         while ans.lower() not in ['yes', 'no', 'y', 'n']:
             print("Please input y/n/yes/no")
-            ans = input(f"{setting} not found in config file, reset to default config (y/n)? ")
+            ans = input(f"{setting} not found in config file, backup old config and create a new one(y/n)? ")
         if 'y' in ans.lower():
-            print("Resetting config...")
+            print("Backing up config...")
+            backup_num = 1
+            backup_file = os.path.join(CONFIG_DIR, f"config_backup_{backup_num}.yaml")
+            while os.path.isfile(backup_file):
+                backup_num += 1
+                backup_file = os.path.join(CONFIG_DIR, f"config_backup_{backup_num}.yaml")
+            shutil.copyfile(CONFIG_FILE, backup_file)
+            print("Making basic config...")
             make_base_config()
             break
 with open(CONFIG_FILE, 'r') as file:
