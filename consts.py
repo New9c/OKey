@@ -1,6 +1,14 @@
 from platformdirs import user_config_dir
 import sys, os, yaml, shutil
 
+
+TERMINAL = {
+    "warn": '\033[93m',
+    "error": '\033[91m',
+    "green": '\033[92m',
+    "normal": '\033[0m'
+}
+
 found_valid_config = False
 try_setting = True
 

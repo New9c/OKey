@@ -22,7 +22,7 @@ face_normal_mouth: 'u'
 face_talking_mouth: ''
 
 # How many chars can be shown at once
-text_len: 63
+text_len: 59
 
 window_size: [1800, 100]
 window_name: "OKey"
@@ -31,7 +31,7 @@ text_color: [255, 255, 255]
 bg_color: [18, 16, 32]
 twitch_color: [137, 90, 209]
 
-text_pos: [10, 30]
+text_pos: [10, 22]
 
 # Makes the characters smoother
 text_antialias: true

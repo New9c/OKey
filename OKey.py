@@ -6,7 +6,7 @@ import pygame
 import threading
 import sounddevice as sd
 
-from consts import SETTINGS, CONFIG_FILE
+from consts import SETTINGS, CONFIG_FILE, TERMINAL
 import face
 import mic
 import twitch
@@ -92,27 +92,37 @@ clock = pygame.time.Clock()
 
 keyboard = mouse = None
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
+if len(devices)==0:
+    print("No devices are found :( This is probably caused by this user not being added to the input group")
 if SETTINGS["show_basic_settings_on_start"]:
     print(f"Tracking mouse = {SETTINGS["mouse_on"]}")
     print(f"Tracking whether talking = {SETTINGS["mic_on"]}")
     print(f"Checking twitch chat with iirc = {SETTINGS["using_twitch"]}")
     print()
+
 for device in devices:
     if SETTINGS["keyboard_name"].lower() in device.name.lower() and keyboard is None:
         keyboard = evdev.InputDevice(device.path)
         if SETTINGS["show_basic_settings_on_start"]:
-            print("    Keyboard: ", end="")
+            print(f"{TERMINAL['green']} Keyboard: {device.name}{TERMINAL['normal']}")
+        if SETTINGS["keyboard_name"] != device.name:
+            print(f"{TERMINAL['warn']}WARNING: '{device.name}' isn't '{SETTINGS["keyboard_name"]}', if this is the correct keyboard, set keyboard_name to '{device.name}'.{TERMINAL['normal']}")
+        continue
     elif SETTINGS["mouse_name"].lower() in device.name.lower() and mouse is None:
         mouse = evdev.InputDevice(device.path)
         if SETTINGS["show_basic_settings_on_start"]:
-            print("   󰍽 Mouse: ", end="")
+            print(f"{TERMINAL['green']}󰍽 Mouse: {device.name}{TERMINAL['normal']}")
+        if SETTINGS["mouse_name"] != device.name:
+            print(f"{TERMINAL['warn']}WARNING: '{device.name}' isn't '{SETTINGS["mouse_name"]}', if this is the correct mouse, set mouse_name to '{device.name}'.{TERMINAL['normal']}")
+        continue
     if SETTINGS["show_basic_settings_on_start"]:
         print(device.name)
 
 def listen_keyboard():
     global events
     if keyboard is None:
-        raise ValueError(f"Couldn't find keyboard input :c Try setting the keyboard_name in {CONFIG_FILE} to one of the printed devices on startup")
+        print(f"{TERMINAL['error']}ERROR: Couldn't find matching keyboard input for '{SETTINGS["keyboard_name"]}' :c Try setting the keyboard_name in {CONFIG_FILE} to one of the printed devices on startup{TERMINAL['normal']}")
+        return
     for event in keyboard.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))
@@ -120,7 +130,8 @@ def listen_keyboard():
 def listen_mouse():
     global events, mouse_clicked
     if mouse is None:
-        raise ValueError(f"Couldn't find mouse input :c Try setting the mouse_name in {CONFIG_FILE} to one of the printed devices on startup, or have mouse_on set to false")
+        print(f"{TERMINAL['error']}ERROR: Couldn't find matching mouse input for '{SETTINGS['mouse_name']}' :c Try setting the mouse_name in {CONFIG_FILE} to one of the printed devices on startup, or have mouse_on set to false{TERMINAL['normal']}")
+        return
     for event in mouse.read_loop():
         if event.type == evdev.ecodes.EV_KEY:
             key_event = str(evdev.categorize(event))

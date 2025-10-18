@@ -11,7 +11,8 @@ def show_twitch_msg(message):
         twitch_msg = f"{message["display-name"]}: {message["message"]}"
         print(twitch_msg)
         if len(twitch_msg)>SETTINGS["text_len"]:
-            twitch_msg = f"{twitch_msg[:SETTINGS["text_len"]-6]}-[>60]"
+            too_big_string = f"-[>{SETTINGS["text_len"]}]"
+            twitch_msg = f"{twitch_msg[:SETTINGS["text_len"]-len(too_big_string)]}{too_big_string}"
 def start():
     connection.listen(SETTINGS["which_chat_to_check"], on_message=show_twitch_msg)
 def stop():
