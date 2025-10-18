@@ -1,10 +1,15 @@
 from platformdirs import user_config_dir
-import os, yaml, shutil
+import sys, os, yaml, shutil
 
 found_valid_config = False
 try_setting = True
-BASE_CONFIG = "basic.yaml"
-BASE_FONT = "JetBrainsMonoNerdFont-Regular.ttf"
+
+if getattr(sys, 'frozen', False):
+    BASE_PATH = sys._MEIPASS
+else:
+    BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+BASE_CONFIG = os.path.join(BASE_PATH, "basic.yaml")
+BASE_FONT = os.path.join(BASE_PATH, "JetBrainsMonoNerdFont-Regular.ttf")
 CONFIG_DIR = user_config_dir("OKey")
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yaml')
 MAIN_FONT = os.path.join(CONFIG_DIR, 'JetBrainsMonoNerdFont-Regular.ttf')
