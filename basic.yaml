@@ -39,7 +39,7 @@ fps: 30
 clear_text_frames: 60
 clear_twitch_frames: 150
 
-font_path: "FONT_PATH"
+font_path: "PLACEHOLDER_FONT_PATH"
 font_size: 50
 
 using_twitch: false
