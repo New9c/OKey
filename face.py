@@ -20,9 +20,9 @@ def base(frame: int, mouse_clicked: bool = False) -> str:
     blink_face = f"{SETTINGS["face_blink_eye"]} {SETTINGS["face_normal_mouth"]} {SETTINGS["face_blink_eye"]}"
     if mouse_clicked:
         return click_face.center(SETTINGS["text_len"])
-    if frame<60-5:
-        return normal_face.center(SETTINGS["text_len"])
-    return blink_face.center(SETTINGS["text_len"])
+    if 28<frame<33:
+        return blink_face.center(SETTINGS["text_len"])
+    return normal_face.center(SETTINGS["text_len"])
 
 def move(frame: int, mouse_clicked: bool = False) -> str:
     eye = SETTINGS["face_click_eye"] if mouse_clicked else SETTINGS["face_normal_eye"]

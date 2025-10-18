@@ -75,8 +75,10 @@ def render(text):
     global frames_left_to_show_text
     if twitch.message_frames>0:
         return twitch.twitch_msg.center(SETTINGS["text_len"]) 
-    elif frames_left_to_show_text>0:
+    if frames_left_to_show_text>0:
         return text.center(SETTINGS["text_len"]) 
+    if SETTINGS["remove_face"]:
+        return ""
     return face.face(frame_time+1, mouse_clicked, mic.talking_frames>0)
 
 pygame.init()

@@ -14,6 +14,8 @@ output_loudness: false
 # How often the face moves
 # Using 4, the face will move once, then blink 3 times, and repeat
 action_interval: 4
+# Pls don't remove me... OnO
+remove_face: false
 # Although they are usually single characters, you can still use/try longer strings
 face_normal_eye: 'O'
 face_blink_eye: 'I'
