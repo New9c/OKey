@@ -43,6 +43,7 @@ font_path: "PLACEHOLDER_FONT_PATH"
 font_size: 50
 
 using_twitch: false
+print_twitch_msg: true
 twitch_username: "your-name"
 # You can make your oauth token with twitchtokengenerator.com, here is a quick link
 # https://twitchtokengenerator.com/?scope=chat:read+chat:edit+channel:moderate+user:read:follows+user:read:emotes+user:read:chat+user:write:chat+moderator:manage:chat_messages+moderator:manage:banned_users+moderator:manage:chat_settings+moderator:manage:shoutouts+channel:manage:broadcast+channel:manage:moderators+channel:manage:vips+channel:manage:raids+channel:edit:commercial&auth=auth_stay
@@ -120,6 +121,6 @@ shift_change:
     "/": '?'
 
 # Big look changes for spice
-# ex: "Mod+Alt+n": "  Mod+Alt+n   "
+# ex: 'Mod+Alt+n': '  Mod+Alt+n   '
 workflow_change:
     "": ""
