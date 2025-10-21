@@ -2,7 +2,7 @@ from twitch_chat_irc import twitch_chat_irc
 from consts import SETTINGS
 message_frames = 0
 twitch_msg = ""
-connection = twitch_chat_irc.TwitchChatIRC(SETTINGS["twitch_username"], SETTINGS["twitch_oauth"], True)
+connection = twitch_chat_irc.TwitchChatIRC(suppress_print=True)
 
 def show_twitch_msg(message):
     global message_frames, twitch_msg

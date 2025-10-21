@@ -60,7 +60,7 @@ def display(text: str):
     was_special = specials
     specials = ctrl or mod or alt
     if specials: 
-        text = f"{"Ctrl+" if ctrl else ""}{"Mod+" if mod else ""}{"Alt+" if alt else ""}{text}"
+        text = f"{SETTINGS['ctrl_text'] if ctrl else ""}{SETTINGS['mod_text'] if mod else ""}{SETTINGS['alt_text'] if alt else ""}{text}"
         events = text
     else:
         if was_special:
@@ -95,7 +95,7 @@ clock = pygame.time.Clock()
 keyboard = mouse = None
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
 if len(devices)==0:
-    print("No devices are found :( This is probably caused by this user not being added to the input group")
+    print(f"{TERMINAL['error']}ERROR: No devices are found :( This is probably caused by this user not being added to the input group{TERMINAL['normal']}")
 if SETTINGS["show_basic_settings_on_start"]:
     print(f"Tracking mouse = {SETTINGS["mouse_on"]}")
     print(f"Tracking whether talking = {SETTINGS["mic_on"]}")
