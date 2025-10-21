@@ -88,7 +88,7 @@ ASUE1407:00 04F3:310D Touchpad	04f3:310d:beedd0e4	leftmouse down
 ASUE1407:00 04F3:310D Touchpad	04f3:310d:beedd0e4	leftmouse up
 ```
 With this it's clear that I should set "keyd virtual keyboard" as the keyboard and "ASUE1407:00 04F3:310D Touchpad" for the mouse
-###  Configs
+### All Configs
 **Please check out all the settings!** You never know if you can change something that you thought you couldn't change! <br>
 I believe all of the settings should be easy to understand, but just in case, I made the full detailed explaination for every setting below.
 <details>
