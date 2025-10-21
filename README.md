@@ -1,5 +1,6 @@
 <h1 align="center">OKey</h1>
 <p align="center">Shows your key presses, with a cute face! OuO</p>
+<h1 align="center"><img width="625" height="157" alt="image" src="https://github.com/user-attachments/assets/6b45ae65-6eec-4e1e-bdbb-941d49becf52" /></h1>
 
 ## Features
 - As configurable as it gets: [Full list of configs](https://github.com/New9c/OKey?tab=readme-ov-file#all-configs)
