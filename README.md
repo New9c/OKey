@@ -104,7 +104,7 @@ mouse_on: Enable/Disable mouse displays
 mic_on: Enable/Disable having the face talk
 
 mic_threshold: How loud sounds have to be to make the face talk
-output_loudness: Outputs how loud it is currently to the terminal, made specifically for setting the mic_threshold
+print_loudness: Prints how loud it is currently to the terminal, made specifically for setting the mic_threshold
 
 action_interval: How often the face moves. Ex: using 4, the face will move once, then blink 3 times, and repeat. If set to 0 the face wouldn't move ever.
 

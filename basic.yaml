@@ -9,7 +9,7 @@ mic_on: false
 # Threshold for whether you are talking
 mic_threshold: 3
 # Made to check what the threshold should be
-output_loudness: false
+print_loudness: false
 
 # How often the face moves
 # Using 4, the face will move once, then blink 3 times, and repeat
