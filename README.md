@@ -2,7 +2,7 @@
 <p align="center">Shows your key presses, with a cute face! OuO</p>
 
 ## Features
-- As configurable as it gets: [Full list of configs]()
+- As configurable as it gets: [Full list of configs](https://github.com/New9c/OKey?tab=readme-ov-file#all-configs)
 - A cute face! OuO
 - Mouse click displays
 - Sound detection (make the face talk O>O)
@@ -18,7 +18,7 @@
 ## Installation
 ### Quick Install
 <details>
-<summary>bash</summary>
+<summary>Bash</summary>
 <br>
 
 ```bash
@@ -30,7 +30,7 @@ sudo chmod +x /usr/local/bin/OKey
 </details>
 
 <details>
-<summary>fish</summary>
+<summary>Fish</summary>
 <br>
 
 ```fish
@@ -88,11 +88,11 @@ ASUE1407:00 04F3:310D Touchpad	04f3:310d:beedd0e4	leftmouse down
 ASUE1407:00 04F3:310D Touchpad	04f3:310d:beedd0e4	leftmouse up
 ```
 With this it's clear that I should set "keyd virtual keyboard" as the keyboard and "ASUE1407:00 04F3:310D Touchpad" for the mouse
-### Other Configs
-**Please check out all the settings!** You never know if you can change something that you thought you couldn't change!
+###  Configs
+**Please check out all the settings!** You never know if you can change something that you thought you couldn't change! <br>
 I believe all of the settings should be easy to understand, but just in case, I made the full detailed explaination for every setting below.
 <details>
-<summary>**Full List of Configs**</summary>
+<summary> Full List of Configs </summary>
 
 ```
 show_basic_settings_on_start: In the terminal, shows whether your mouse is detected, mic is detected, and whether a twitch chat is checked, then shows the input devices. Good for trouble shooting at the start.
@@ -154,9 +154,9 @@ workflow_change: Final change: if you want something to look quite different, su
 The code trys to resolve errors such as missing config settings, but it currently still assumes the type of the config parameter (ex: int or str) to be correct and will have errors if it isn't. If the config isn't quite working, I'd recommend deleting the config file and starting over.
 
 ## Inspiration + More Keypress Displayers
-(I'll call these pieces of software that show your key presses as keypress displayers, but I don't think there is a clear term made for this yet, despite the growing amount of them) <br><br>
+(I'll call these pieces of software that show your key presses as keypress displayers, but I don't think there is a clear term made for this yet, despite the growing amount of them) <br>
 
-After seeing [ThePrimeagen]() use a keypress displayer, I wanted to have one myself.<br>
+After seeing [ThePrimeagen](https://www.youtube.com/@ThePrimeTimeagen) use a keypress displayer, I wanted to have one myself.<br>
 Here are the main two I've tried using:<br>
 - [screenkey](https://gitlab.com/screenkey/screenkey)
 - [showmethekey](https://github.com/AlynxZhou/showmethekey)
