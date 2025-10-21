@@ -50,10 +50,10 @@ def display(text: str):
         return
     frames_left_to_show_text = SETTINGS["clear_text_frames"]
     text = text[text.index("(")+1:text.index(")")].removeprefix("KEY_").lower()
-    if text in SETTINGS["change"]:
+    if SETTINGS["change"] is not None and text in SETTINGS["change"]:
         text = SETTINGS["change"][text]
     if shift:
-        if text in SETTINGS["shift_change"]:
+        if SETTINGS["shift_change"] is not None and text in SETTINGS["shift_change"]:
             text = SETTINGS["shift_change"][text]
         else:
             text = text.upper()
@@ -68,7 +68,7 @@ def display(text: str):
         events += text
     if len(events)>SETTINGS["text_len"]:
         events = events[-SETTINGS["text_len"]:]
-    if events in SETTINGS["workflow_change"]:
+    if SETTINGS["shift_change"] is not None and events in SETTINGS["workflow_change"]:
         events = SETTINGS["workflow_change"][events]
 
 def render(text):

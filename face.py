@@ -1,4 +1,4 @@
-from consts import SETTINGS
+from consts import SETTINGS, TERMINAL
 
 FRAMES_FOR_ONE_MOVE = 60
 roll = 0
@@ -9,7 +9,11 @@ def face(frame: int, mouse_clicked: bool = False, talking: bool = False):
         eye = SETTINGS["face_click_eye"] if mouse_clicked else SETTINGS["face_normal_eye"]
         return f"{eye} {SETTINGS["face_talking_mouth"]} {eye}".center(SETTINGS["text_len"])
     if frame == 1:
-        roll = (roll+1)%SETTINGS["action_interval"]
+        if roll>=0:
+            roll = (roll+1)%SETTINGS["action_interval"] if SETTINGS["action_interval"]!=0 else 1
+        else:
+            print(f"{TERMINAL['error']}ERROR: Invalid action_interval: '{SETTINGS["action_interval"]}'{TERMINAL['normal']}")
+            return ""
     if roll==0:
         return move(frame, mouse_clicked)
     return base(frame, mouse_clicked)

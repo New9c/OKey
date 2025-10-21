@@ -46,7 +46,7 @@ font_size: 50
 
 using_twitch: false
 print_twitch_msg: true
-# Which streamers chat to check, usually it's your own
+# Which streamer's chat to check, usually it's your own
 which_chat_to_check: "your-name"
 # Which names to ignore, usually your bots and yourself
 twitch_ignore_names:
@@ -122,6 +122,8 @@ shift_change:
     "/": '?'
 
 # Big look changes for spice
-# ex: 'Mod+Alt+n': '  Mod+Alt+n   '
 workflow_change:
-    "": ""
+    "Ctrl+z": "  Ctrl+z   "
+    "Ctrl+x": "  Ctrl+x   "
+    "Ctrl+c": "  Ctrl+c   "
+    "Ctrl+v": "  Ctrl+v   "
