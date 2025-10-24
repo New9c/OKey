@@ -19,7 +19,7 @@
 ## Installation
 ### Quick Install
 <details>
-<summary>AUR package</summary>
+<summary>AUR package: okey-git</summary>
 <br>
 
 ```sh
