@@ -19,6 +19,16 @@
 ## Installation
 ### Quick Install
 <details>
+<summary>AUR package</summary>
+<br>
+
+```sh
+# You may need to update your AUR helper, as I added this quite recently
+# yay -Syu
+yay -S okey-git
+```
+</details>
+<details>
 <summary>Bash</summary>
 <br>
 
