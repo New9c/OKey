@@ -121,11 +121,11 @@ face_normal_eye: What string/char is used to represent the eye normally
 face_click_eye: What string/char is used to represent the eye when a mouse button is pressed
 face_normal_mouth: What string/char is used to represent the mouth normally
 face_talking_mouth: What string/char is used to represent the mouth when talking
-replace_char_as_eye: 'e'
-replace_char_as_mouth: 'm'
+replace_char_as_eye: See face_animation
+replace_char_as_mouth: See face_animation
 face_animation: Where the animation is made, every block should be [last_frame, look]. 
 For the look, every e will become an eye, reacting to mouse clicks, every m will become a mouth, reacting to sounds allowing talking.
-If you need the letters e and m for something, you can choose other characters to symbolize eyes and mouths.
+If you need the letters e and m for something, you can choose other characters to symbolize eyes and mouths with the replace_char_as_eye/mouth setting.
 
 text_len: How many characters can be shown together at once. You should change this if you adjusted the window size.
 
