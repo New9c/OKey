@@ -11,17 +11,18 @@ mic_threshold: 3
 # Made to check what the threshold should be
 print_loudness: false
 
-# How often the face moves
-# Using 4, the face will move once, then blink 3 times, and repeat
-action_interval: 4
-# Pls don't remove me... OnO
-remove_face: false
 # Although they are usually single characters, you can still use/try longer strings
+# Set them all to "" if you don't want a face
 face_normal_eye: 'O'
-face_blink_eye: 'I'
 face_click_eye: '󰆿'
 face_normal_mouth: 'u'
 face_talking_mouth: ''
+# Text will be centered
+# e will be replaced by an eye, while m will be replaced by a mouth 
+face_animation:
+    - [27, "e m e"] # Frames  1 ~ 27 "O u O"
+    - [33, "I m I"] # Frames 28 ~ 33 "I u I"
+    - [60, "e m e"] # Frames 34 ~ 60 "O u O"
 
 # How many chars can be shown at once
 text_len: 59
@@ -39,6 +40,8 @@ text_pos: [10, 22]
 text_antialias: true
 fps: 30
 clear_text_frames: 60
+# After becoming quiet, how long mouth will stay open, needs to be at least one for mouth to work
+clear_talking_frames: 15
 clear_twitch_frames: 150
 
 font_path: "PLACEHOLDER_FONT_PATH"

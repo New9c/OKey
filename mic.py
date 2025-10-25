@@ -9,4 +9,4 @@ def callback(indata, frames, time, status):
     if SETTINGS["print_loudness"]:
         print(f"Loudness: {round(volume_norm*1000)/1000}, Talking: {volume_norm > SETTINGS["mic_threshold"]}")
     if volume_norm > SETTINGS["mic_threshold"]:
-        talking_frames = 15
+        talking_frames = SETTINGS["clear_talking_frames"]
