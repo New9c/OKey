@@ -117,14 +117,15 @@ mic_on: Enable/Disable having the face talk
 mic_threshold: How loud sounds have to be to make the face talk
 print_loudness: Prints how loud it is currently to the terminal, made specifically for setting the mic_threshold
 
-action_interval: How often the face moves. Ex: using 4, the face will move once, then blink 3 times, and repeat. If set to 0 the face wouldn't move ever.
-
-remove_face: Removes the face for a more simple look
 face_normal_eye: What string/char is used to represent the eye normally
-face_blink_eye: What string/char is used to represent the eye when blinking
 face_click_eye: What string/char is used to represent the eye when a mouse button is pressed
 face_normal_mouth: What string/char is used to represent the mouth normally
 face_talking_mouth: What string/char is used to represent the mouth when talking
+replace_char_as_eye: 'e'
+replace_char_as_mouth: 'm'
+face_animation: Where the animation is made, every block should be [last_frame, look]. 
+For the look, every e will become an eye, reacting to mouse clicks, every m will become a mouth, reacting to sounds allowing talking.
+If you need the letters e and m for something, you can choose other characters to symbolize eyes and mouths.
 
 text_len: How many characters can be shown together at once. You should change this if you adjusted the window size.
 
@@ -140,6 +141,7 @@ text_pos: The offset of the text relative to the left top corner. Note that sinc
 text_antialias: TLDR, makes the text smoother. I don't know much about antialias, so a google search may help :3
 fps: How often the display updates, setting it too high could eat up resources
 clear_text_frames: How long it'll take for text on the screen to be removed (Do quick math for seconds, ex: 60/30 = 2 seconds)
+clear_talking_frames: After becoming quiet, how long it'll take for the mouth to close, needs to be at least one for mouth to work
 clear_twitch_frames: How long it'll take for twitch chat message on the screen to be removed
 
 font_path: Where it'll find the font to use. Use absolute paths. A nerd font is highly recommended.
