@@ -25,9 +25,9 @@ def face(frame: int, mouse_clicked: bool = False, talking: bool = False):
 def __replacer(face_string: str, eye: str, mouth: str) -> str:
     s = ""
     for c in face_string:
-        if c == 'e':
+        if c == SETTINGS["replace_char_as_eye"]:
             s += eye
-        elif c == 'm':
+        elif c == SETTINGS["replace_char_as_mouth"]:
             s += mouth
         else:
             s += c

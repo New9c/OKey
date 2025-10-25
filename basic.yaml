@@ -17,6 +17,8 @@ face_normal_eye: 'O'
 face_click_eye: '󰆿'
 face_normal_mouth: 'u'
 face_talking_mouth: ''
+replace_char_as_eye: 'e'
+replace_char_as_mouth: 'm'
 # Text will be centered
 # e will be replaced by an eye, while m will be replaced by a mouth 
 face_animation:
